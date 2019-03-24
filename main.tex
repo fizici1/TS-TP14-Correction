@@ -1,0 +1,151 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{eurosym}
+\usepackage[cdot]{SIunits}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage[europeanresistors]{circuitikz}
+\usepackage{chemfig}
+\usepackage{fancyhdr}
+\usepackage{multido}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{enumitem}
+
+\usepackage{colorwav}
+\usepackage{etoolbox} 
+\renewcommand*{\do}[1]{ \storeRGBofWavelength{\Rval}{\Gval}{\Bval}{#1} \definecolor{wl#1}{rgb}{\Rval, \Gval, \Bval} } \docsvlist{380,390,400,410,420,430,440,450,500,550,600,650,700,750,780}
+\pgfdeclarehorizontalshading{spectrum}{1cm}{ color(0cm)=(wl380); color({0.4cm})=(wl400); color(1.4cm)=(wl450); color(2.4cm)=(wl500); color(3.4cm)=(wl550); color(4.4cm)=(wl600); color(5.4cm)=(wl650); color(6.4cm)=(wl700); color(7.4cm)=(wl750); color(8cm)=(wl780) }
+\usepackage{pgfplots}
+\usetikzlibrary{plotmarks}
+\pgfplotsset{compat=1.15}
+
+\setlength{\parindent}{0mm}
+
+\geometry{%
+	a4paper,
+	body={180mm,255mm},
+	left=15mm,top=25mm,
+	headheight=10mm,headsep=4mm,
+	marginparsep=5mm,
+	marginparwidth=40mm
+}
+\setlength{\headwidth}{180mm}
+
+\renewcommand \thesection { }
+
+\lhead{Mr Fontaine\\Lycée Jean Joly}
+\chead{Activité expérimentale 14\\Degré d'acidité d'un vinaigre}
+\rhead{Terminale S\\2018-2019}
+
+\begin{document}
+\thispagestyle{fancy}
+\section{ANALYSER}
+\begin{enumerate}
+    \item Le degré du vinaigre est 8\%.
+    
+    La concentration molaire est $c=\frac{n_{acide}}{V_{vinaigre}}$.
+    
+    On calcule $n_{acide}$ en faisant $n_{acide}=\frac{m_{acide}}{M_{acide}}$ avec $m_{acide}=\unit{8}{\gram}$ et $M_{acide}=\unit{60}{\gram\usk\reciprocal\mole}$. 
+    
+    D'autre part, $V_{vinaigre}=\frac{m_{vinaigre}}{\rho_{vinaigre}}$ avec $m_{vinaigre}=\unit{100}{\gram}$ et $\rho_{vinaigre}=\unit{1,01\times 10^3}{\gram\usk\reciprocal\liter}$.
+    
+    Donc
+    \[
+    c=\frac{m_{acide}}{M_{acide}}\times \frac{\rho_{vinaigre}}{m_{vinaigre}}=\frac{8\times 1,01\times 10^3}{60\times 100}=\unit{1,35}{\mole\usk\reciprocal\liter}
+    \]
+    \item On réalise une dilution:
+    
+    \begin{tabular}{p{5cm}|p{5cm}|p{5cm}}
+        \textbf{Première étape: } On prélève $\unit{10}{\milli\liter}$ de vinaigre à l'aide d'une pipette jaugée. &  \textbf{Deuxième étape: }On verse les $\unit{10}{\milli\liter}$ prélevés dans une fiole jaugée de $\unit{100}{\milli\liter}$.&\textbf{Troisième étape: }On complète avec de l'eau distillée.\\
+            \def\svgwidth{3cm}
+            \input{pipette.pdf_tex}
+        & 
+            \def\svgwidth{4cm}
+            \input{fiole.pdf_tex}
+        & 
+            \def\svgwidth{4.5cm}
+            \input{pissette.pdf_tex}
+       \\
+    \end{tabular}
+\end{enumerate}
+\section{RÉALISER}
+On réalise un premier dosage pour déterminer l'intervalle dans lequel se trouve l'équivalence. Il se situe entre 12 et 14 mL.
+
+Dans cette zone, on observe un changement de couleur dû à la présence de la phénolphtaléine.
+
+\def\imagetop#1{\vtop{\null\hbox{#1}}}
+\begin{tabular}{p{4cm} p{10cm}}
+
+\imagetop{\scalebox{0.8 }{ 
+\begin{tabular}{|c|c|}
+ V(mL) & pH\\ \hline
+ 0,000 & 2,800\\
+ 1,000 & 3,500\\
+2,000 & 3,800\\
+ 3,000 & 4,000\\
+ 4,000 & 4,200\\
+ 5,000 & 4,300 \\
+ 6,000 & 4,400\\
+ 7,000 & 4,600 \\
+ 8,000 & 4,700 \\
+ 9,000 & 4,900\\
+ 10,00 & 5,000\\
+ 11,00 & 5,200\\
+ 12,00 & 5,500\\
+ 12,20 & 5,600 \\
+ 12,40 & 5,700 \\
+ 12,60 & 5,800\\
+ 12,80 & 6,100\\
+ 13,00 & 6,400\\
+ 13,20 & 8,200\\
+ 13,40 & 9,600\\
+ 13,60 & 10,40 \\
+ 13,80 & 10,70 \\
+ 14,00 & 11,00\\
+ 15,00 & 11,30\\
+ 16,00 & 11,50 \\
+ 17,00 & 11,60 \\
+ 18,00 & 11,60 \\
+ 19,00 & 11,70\\
+ 20,00 & 11,80\\
+\end{tabular}}}
+&
+\imagetop{\begin{tikzpicture}
+    \begin{axis}[
+        height=8cm,width=12cm
+        ,axis x line=bottom,axis y line=left
+        ,xmin=0,xmax=20.8
+        ,ymin=0,ymax=12.27
+        ,grid=major
+        ,title={}
+        ,xlabel={V(mL)}
+        ,ylabel={pH}
+        ]
+        \addplot[draw=black,mark=+] file {graphe10.txt};
+    \end{axis}
+\end{tikzpicture}}
+\\
+\end{tabular}
+\section{VALIDER}
+\begin{enumerate}
+    \item L'équation de la réaction de titrage est :
+    \begin{center}
+        \chemfig{CH_3COOH}+\chemfig{HO^{-}} $\longrightarrow$ \chemfig{CH_3COO^{-}} + \chemfig{H_2O}
+    \end{center}
+    La réaction de titrage est totale et à l'équivalence, la soude a entièrement consommé l'acide présent à l'état initial.
+    
+    On en déduit qu'à l'équivalence, la quantité de matière de soude introduite est égale à la quantité de matière d'acide présent dans le bécher à l'état initial:
+    \[
+        n_{BE}=m{Ai}
+    \]
+    \item 
+\end{enumerate}
+\end{document}
