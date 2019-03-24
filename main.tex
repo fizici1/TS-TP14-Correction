@@ -81,10 +81,33 @@ On réalise un premier dosage pour déterminer l'intervalle dans lequel se trouv
 
 Dans cette zone, on observe un changement de couleur dû à la présence de la phénolphtaléine.
 
-\def\imagetop#1{\vtop{\null\hbox{#1}}}
+
+\section{VALIDER}
+\begin{enumerate}
+    \item L'équation de la réaction de titrage est :
+    \begin{center}
+        \chemfig{CH_3COOH}+\chemfig{HO^{-}} $\longrightarrow$ \chemfig{CH_3COO^{-}} + \chemfig{H_2O}
+    \end{center}
+    La réaction de titrage est totale et à l'équivalence, la soude a entièrement consommé l'acide présent à l'état initial.
+    
+    On en déduit qu'à l'équivalence, la quantité de matière de soude introduite est égale à la quantité de matière d'acide présent dans le bécher à l'état initial:
+    \[
+        n_{BE}=n_{Ai}
+    \]
+    \item On utilise la relation $n=c\times V$. La relation devient:
+    \[
+        c_B\times V_E=c_1\times V_A
+    \]
+    Donc 
+    \[
+        c_1=\frac{c_B\times V_E}{V_A}
+    \]
+    \item On obtient l'évolution du pH en fonction du volume de soude versé:
+    
+    \def\imagetop#1{\vtop{\null\hbox{#1}}}
 \begin{tabular}{p{4cm} p{10cm}}
 
-\imagetop{\scalebox{0.8 }{ 
+\imagetop{\scalebox{0.6 }{ 
 \begin{tabular}{|c|c|}
  V(mL) & pH\\ \hline
  0,000 & 2,800\\
@@ -134,18 +157,39 @@ Dans cette zone, on observe un changement de couleur dû à la présence de la p
 \end{tikzpicture}}
 \\
 \end{tabular}
-\section{VALIDER}
-\begin{enumerate}
-    \item L'équation de la réaction de titrage est :
-    \begin{center}
-        \chemfig{CH_3COOH}+\chemfig{HO^{-}} $\longrightarrow$ \chemfig{CH_3COO^{-}} + \chemfig{H_2O}
-    \end{center}
-    La réaction de titrage est totale et à l'équivalence, la soude a entièrement consommé l'acide présent à l'état initial.
-    
-    On en déduit qu'à l'équivalence, la quantité de matière de soude introduite est égale à la quantité de matière d'acide présent dans le bécher à l'état initial:
-    \[
-        n_{BE}=m{Ai}
-    \]
-    \item 
+\item Pour déterminer le volume équivalent, on utilise la méthode de la dérivée. Dans le logiciel Régressi, on ajoute une nouvelle grandeur qui est la dérivée du pH par rapport au volume :
+\[
+    derivee = \frac{\mathrm{d}pH}{\mathrm{d}V}
+\]
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+height=8cm,width=12cm
+,axis x line=bottom,axis y line=left
+,xmin=0,xmax=20.8
+,ymin=0,ymax=8.322
+,grid=major
+,title={}
+,xlabel={V(mL)}
+,ylabel={derivee}
+]
+\addplot[draw=black,mark=+] file {derivee10.txt};
+\draw[dashed] (13.2,8) -- (13.2,0);
+\end{axis}
+\draw (6.6,-0.2) node{$V_E$};
+\end{tikzpicture}
+\end{center}
+L'équivalence correspond au maximum de la dérivée. On trouve $V_E=\unit{13,2}{\milli\liter}$.
+\item La phénolphtaléine est un indicateur coloré incolore pour les acides et rose pour les bases. La zone de virage est située entre un pH de 8,2 et de 10. Le pH à l'équivalence étant de 8,2 la phénolphtaléine permettra de détecter l'équivalence par un changement de couleur.
+\item On calcule $c_1$ avec la formule établie précédemment:
+\[
+c_1=\frac{1,0\times 10^{-1}\times 13,2}{10,0}=\unit{0,132}{\mole\usk\reciprocal\liter}
+\]
+La solution $S_0$ ayant subi une dilution par 10, on en déduit $c_0=10\times c_1=\unit{1,32}{\mole\usk\reciprocal\liter}$.
+
+Ce résultat est en accord avec la concentration trouvée dans la partie Analyser : $\unit{1,35}{\mole\usk\reciprocal\liter}$.
+
+L'écart relatif est 
+\[\frac{\Delta c_0}{c_0}=\frac{1,35-1,32}{1,35}=2\%\]
 \end{enumerate}
 \end{document}

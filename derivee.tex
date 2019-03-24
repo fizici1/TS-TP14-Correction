@@ -1,0 +1,32 @@
+%!TEX encoding = UTF-8 Unicode
+\documentclass[french]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{tikz}
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usetikzlibrary{plotmarks}
+\title{}
+\author{david}
+\pgfplotsset{compat=1.15}%ligne que je ne comprends pas trop
+\begin{document}
+\maketitle
+
+\begin{tikzpicture}
+\begin{axis}[
+height=8cm,width=12cm
+,axis x line=bottom,axis y line=left
+,xmin=0,xmax=20.8
+,ymin=0,ymax=8.322
+,grid=major
+,title={}
+,xlabel={V/mL}
+,ylabel={derivee/cm${^-3}$}
+]
+\addplot[draw=black,mark=+] file {derivee10.txt};
+\end{axis}
+\end{tikzpicture}
+
+\end{document}
